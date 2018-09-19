@@ -3,7 +3,7 @@
 This SPA demonstrates a SKY Add-in implementation using SKY UX, and includes a tile that can be shown on any page as well as a few examples
 of launching modals (implemented in separate web applications).
 
-This code is running live at `https://host.nxt.blackbaud.com/addin-hello-world`.
+This code is running live at https://host.nxt.blackbaud.com/addin-hello-world.
 
 For more information on Blackbaud's SKY Add-in framework, see https://developer.blackbaud.com/skyapi/docs/addins.
 
