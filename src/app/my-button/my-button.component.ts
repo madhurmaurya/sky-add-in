@@ -1,5 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { AddinClientInitArgs, AddinClient, AddinButtonStyle } from '@blackbaud/sky-addin-client';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  AddinClientService
+} from '@blackbaud/skyux-lib-addin-client';
+
+import {
+  AddinClientInitArgs,
+  AddinButtonStyle
+} from '@blackbaud/sky-addin-client';
 
 @Component({
   selector: 'my-button',
@@ -7,23 +18,22 @@ import { AddinClientInitArgs, AddinClient, AddinButtonStyle } from '@blackbaud/s
 })
 export class MyButtonComponent implements OnInit {
 
-  private addinClient: AddinClient;
+  constructor(
+    private addinClientService: AddinClientService
+  ) {}
 
   public ngOnInit() {
 
-    this.addinClient = new AddinClient({
-      callbacks: {
-        init: (args: AddinClientInitArgs) => {
-          args.ready({
-            showUI: true,
-            title: 'Add customer',
-            buttonConfig: { style: AddinButtonStyle.Add }
-          });
-        },
-        buttonClick: () => {
-          this.showSkyUxModal();
-        }
-      }
+    this.addinClientService.args.subscribe((args: AddinClientInitArgs) => {
+      args.ready({
+        showUI: true,
+        title: 'Add customer',
+        buttonConfig: { style: AddinButtonStyle.Add }
+      });
+    });
+
+    this.addinClientService.buttonClick.subscribe(() => {
+      this.showSkyUxModal();
     });
   }
 
@@ -38,14 +48,14 @@ export class MyButtonComponent implements OnInit {
   }
 
   private showModal(url: string, context: any) {
-    let response = this.addinClient.showModal({
+
+    this.addinClientService.showModal({
       url: url,
       context: context
-    });
-
-    response.modalClosed.then((modalResponse) => {
+    }).subscribe(modalResponse => {
       let res = JSON.stringify(modalResponse, undefined, 2);
       console.log(res);
     });
   }
+
 }
