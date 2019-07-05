@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@angular/compiler-cli": "7.2.15",
-    "@pact-foundation/pact": "7.4.0",
+    "@pact-foundation/pact": "8.2.6",
     "@pact-foundation/pact-web": "7.4.0",
     "@skyux-sdk/builder": "3.6.6",
     "@skyux-sdk/pact": "3.2.0",
