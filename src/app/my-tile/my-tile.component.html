@@ -1,4 +1,4 @@
-<div>
+<div class="tile-content">
   <h1>{{ 'tile_header' | skyAppResources }}</h1>
 
   <p>Welcome to the SKY UX Add-in template.</p>
@@ -84,6 +84,36 @@
       Add-ins can also navigate the host page:
     </p>
     <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="invokeNavigation()">Navigate to <b>https://www.blackbaud.com</b></button>
+  </div>
+
+  <div>
+    <p>
+      Add-ins can show a toast:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showToast()">Show a toast</button>
+  </div>
+
+  <div>
+    <p>
+     Add-ins can show a confirm dialog:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showConfirm()">Show a confirm dialog</button>
+  </div>
+
+  <div *ngIf="confirmAction">
+    <p></p>
+    <sky-alert alertType="info" closeable="true">
+      The confirm dialog returned the following action:
+      <br />
+      <span>{{ confirmAction }}</span>
+    </sky-alert>
+  </div>
+
+  <div>
+    <p>
+      Add-ins can show an error dialog:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showError()">Show an error dialog</button>
   </div>
 
 </div>

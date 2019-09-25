@@ -8,7 +8,9 @@ import {
 } from '@blackbaud/skyux-lib-addin-client';
 
 import {
-  AddinClientInitArgs
+  AddinClientInitArgs,
+  AddinToastStyle,
+  AddinConfirmButtonStyle
 } from '@blackbaud/sky-addin-client';
 
 @Component({
@@ -21,6 +23,7 @@ export class MyTileComponent implements OnInit {
   public context: string;
   public userIdentityToken: string;
   public modalResponse: string;
+  public confirmAction: string;
 
   constructor(
     private addinClientService: AddinClientService
@@ -75,6 +78,44 @@ export class MyTileComponent implements OnInit {
     };
 
     this.showModal('https://host.nxt.blackbaud.com/addin-modal-demo/add-customer', context);
+  }
+
+  public showToast() {
+    const message: string = 'This is a toast message';
+    const toastStyle: AddinToastStyle = AddinToastStyle.Success;
+    this.addinClientService.showToast({ message: message, style: toastStyle });
+  }
+
+  public showConfirm() {
+    this.confirmAction = undefined;
+
+    this.addinClientService.showConfirm({
+      body: 'Are you sure you want to continue?',
+      buttons: [
+      {
+        action: 'yes',
+        text: 'Yes',
+        autofocus: true,
+        style: AddinConfirmButtonStyle.Primary
+      },
+      {
+        action: 'cancel',
+        style: AddinConfirmButtonStyle.Link,
+        text: 'Cancel'
+      }
+      ],
+      message: 'Saving...'
+    }).subscribe((action: string) => {
+      this.confirmAction = action;
+    });
+  }
+
+  public showError() {
+    this.addinClientService.showError({
+      closeText: 'OK',
+      title: 'Save Error',
+      description: 'An unexpected error occurred'
+    });
   }
 
   private showModal(url: string, context: any) {
