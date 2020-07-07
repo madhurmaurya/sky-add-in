@@ -38,10 +38,10 @@ export class MyTileComponent implements OnInit {
     });
   }
 
-  public getAuthToken() {
+  public getUserIdentityToken() {
     this.userIdentityToken = undefined;
 
-     this.addinClientService.getAuthToken().subscribe(token => {
+     this.addinClientService.getUserIdentityToken().subscribe(token => {
        this.userIdentityToken = token;
      });
   }
