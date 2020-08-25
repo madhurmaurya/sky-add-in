@@ -12,6 +12,10 @@ import {
   AddinButtonStyle
 } from '@blackbaud/sky-addin-client';
 
+import {
+  SkyModalCloseArgs
+} from '@skyux/modals';
+
 @Component({
   selector: 'my-button',
   templateUrl: './my-button.component.html'
@@ -52,7 +56,7 @@ export class MyButtonComponent implements OnInit {
     this.addinClientService.showModal({
       url: url,
       context: context
-    }).subscribe(modalResponse => {
+    }).subscribe((modalResponse: SkyModalCloseArgs) => {
       let res = JSON.stringify(modalResponse, undefined, 2);
       console.log(res);
     });
