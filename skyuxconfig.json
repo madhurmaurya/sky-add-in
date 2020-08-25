@@ -8,7 +8,7 @@
   },
   "host": {
     "frameOptions": {
-      "none": true
+      "blackbaud": true
     }
   }
 }
