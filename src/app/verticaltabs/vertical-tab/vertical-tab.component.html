@@ -1,0 +1,107 @@
+<div>
+  <h1>{{ 'tile_header' | skyAppResources }}</h1>
+
+  <p>Welcome to the SKY UX Add-in template.</p>
+
+  <sky-alert alertType="info">
+    You've just taken your first step into a larger world.
+  </sky-alert>
+
+  <p>
+    <a
+      href="https://developer.blackbaud.com/skyapi/docs/addins"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="sky-btn sky-btn-primary"
+    >
+      Learn more about SKY Add-ins
+    </a>
+  </p>
+
+  <!-- <form name="frmGPAIndex" id="frmGPAIndex">
+    <iframe id="frmIframe" border="0" frameborder="0" width="100%" class="iframe" src="https://host.nxt.blackbaud.com/addin-hello-world/my-tile" ></iframe>
+  </form> -->
+
+  <label for="environmentId" class="sky-control-label">
+    The environment ID is a context value that is available to all add-ins:
+  </label>
+  <div id="environmentId">{{ environmentId }}</div>
+
+  <p></p>
+  <label for="context" class="sky-control-label">
+    Additional context values vary for each extension point - for the current extension point, the following context is provided:
+  </label>
+  <div id="context">{{ context }}</div>
+
+  <p></p>
+  <label for="context" class="sky-control-label">
+    Form data:
+  </label>
+  <div id="formData">{{ formData }}</div>
+
+  <p></p>
+  <p>
+    Click the button to request a user identity token for the current user:
+  </p>
+  <button type="button" class="sky-btn sky-btn-default" (click)="getAuthToken()">Get auth token</button>
+
+  <div *ngIf="userIdentityToken">
+    <p></p>
+    <p>
+      The following string represents the identity of the current user, and can be provided to the add-in's backend for validation:
+    </p>
+    <span>{{ userIdentityToken }}</span>
+  </div>
+
+  <div *ngIf="userIdentityTokenDecoded">
+    <p></p>
+    <p>
+      The following string represents the decoded identity of the current user, and can be provided to the add-in's backend for validation:
+    </p>
+    <span>{{ userIdentityTokenDecoded }}</span>
+  </div>
+
+  <div>
+    <p></p>
+    <p>
+      Add-ins can show modal dialogs.  The following button shows a modal implemented using vanilla HTML, CSS, and JavaScript - the modal itself is implemented in a
+      separate <a href="https://github.com/blackbaud/addin-hello-world" target="_blank">hello world</a> web application:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showSimpleModal()">Show a simple modal</button>
+  </div>
+
+  <div>
+    <p></p>
+    <p>
+      Modals can be implemented using SKY UX for a more consistent user experience.  The following button shows a modal implemented in a
+      separate <a href="https://github.com/blackbaud/skyux-spa-addin-modal-demo" target="_blank">modal demo</a> SKY UX SPA:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showSkyUxModal()">Show <b>Add customer</b> modal</button>
+  </div>
+
+  <div *ngIf="modalResponse">
+    <p></p>
+    <sky-alert alertType="info" closeable="true">
+        The modal returned the following context:
+        <br />
+        <span>{{ modalResponse }}</span>
+    </sky-alert>
+  </div>
+
+  <div>
+    <p></p>
+    <p>
+      Add-ins can also open the help window:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="openHelp()">Open help for <b>applications.html</b></button>
+  </div>
+
+  <div>
+    <p></p>
+    <p>
+      Add-ins can also navigate the host page:
+    </p>
+    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="invokeNavigation()">Navigate to <b>https://www.blackbaud.com</b></button>
+  </div>
+
+</div>

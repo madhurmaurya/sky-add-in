@@ -1,0 +1,31 @@
+::ng-deep body {
+  background: white;
+}
+
+// /deep/ body {
+//   background: white;
+//   padding: 10px;
+//   background-color: #fff;
+//   margin: 0;
+//   padding: 10px;
+//   // height: 100%;
+//   // min-height: 600px;
+//   // overflow: hidden;
+//   // height: -moz-available;          /* WebKit-based browsers will ignore this. */
+//   // height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+//   // height: fill-available;
+//   // overflow-y: hidden;
+
+//   iframe {
+//     position: absolute;
+//     margin: 0;
+//     padding: 0;
+//     top: 0;
+//     left: 0;
+//     height: 100%;
+//   }
+// }
+
+// ::ng-deep  #skypages-header {
+//   display: none;
+// }
