@@ -16,6 +16,13 @@
           required
         ></textarea>
       </sky-column>
+      <sky-column>
+        <sky-checkbox [(ngModel)]="isImportant">
+          <sky-checkbox-label class="sky-control-label">
+            Mark important
+          </sky-checkbox-label>
+        </sky-checkbox>
+      </sky-column>
     </sky-row>
     <sky-row>
       <div class="sky-margin-stacked-separate"></div>
@@ -43,15 +50,34 @@
           <sky-description-list-content>
             <sky-description-list-term>
               {{ item.createdBy }}
+              <small>
+                commented on {{ item.createdDate | skyDate: "mediumDate" }}
+              </small>
             </sky-description-list-term>
             <sky-description-list-description>
-              {{ item.message }}
+              <span>
+                {{ item.message }}
+              </span>
+              <sky-label *ngIf="item.important" labelType="warning">
+                important
+              </sky-label>
             </sky-description-list-description>
           </sky-description-list-content>
         </sky-description-list>
       </sky-column>
+      <sky-column
+        screenXSmall="1"
+        screenSmall="1"
+        screenMedium="1"
+        ScreenLarge="1"
+      >
+        <a
+          href="mailto:{{ item.createdByEmail }}"
+          title="{{ item.createdByEmail }}"
+        >
+          <sky-icon icon="envelope-o"></sky-icon>
+        </a>
+      </sky-column>
     </sky-row>
   </sky-fluid-grid>
-
-  <ng-template #vendorDetailBlock> </ng-template>
 </main>

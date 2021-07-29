@@ -2,7 +2,7 @@ export interface LineItem {
   createdBy?: string;
   id: number;
   createdByEmail?: string;
-  createdDate?: string;
+  createdDate?: Date;
   message?: string;
   important?: boolean;
 }

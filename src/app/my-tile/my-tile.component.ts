@@ -18,6 +18,7 @@ export class MyTileComponent implements OnInit {
   public id: number;
   public masterList: LineItem[] = [];
   public items: LineItem[] = [];
+  public isImportant: boolean;
 
   constructor(
     private addinClientService: AddinClientService,
@@ -32,11 +33,17 @@ export class MyTileComponent implements OnInit {
       if (items && items.length) {
         this.masterList = items;
       }
+      console.log(args);
       this.environmentId = args.envId;
       this.context = args.context.config;
       this.id = args.context.id;
 
       this.items = this.masterList.filter((x) => x.id === this.id);
+      this.items.sort(
+        (a, b) =>
+          new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+
       args.ready({
         showUI: true,
         title: "COLLABORATE",
@@ -44,20 +51,27 @@ export class MyTileComponent implements OnInit {
     });
   }
 
+  // new Date().toISOString().slice(0, 10),
+
   public add() {
-    if (this.message) {
+    if (this.message.trim()) {
       let item: LineItem = {
         createdBy: `${this.context.givenName} ${this.context.surname}`,
         createdByEmail: this.context.userName,
-        createdDate: new Date().toISOString().slice(0, 10),
+        createdDate: new Date(),
         message: this.message,
         id: this.id,
-        important: false,
+        important: this.isImportant,
       };
       this.masterList.push(item);
       this.items.push(item);
+      this.items.sort(
+        (a, b) =>
+          new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+
       this.localStorageService.setConfig("comments", this.masterList);
-      this.message = "";
+      this.message = undefined;
     }
   }
 }
