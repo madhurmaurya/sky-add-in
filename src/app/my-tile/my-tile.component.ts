@@ -1,95 +1,63 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
-import {
-  AddinClientService
-} from '@blackbaud/skyux-lib-addin-client';
-
-import {
-  AddinClientInitArgs
-} from '@blackbaud/sky-addin-client';
-
-import {
-  SkyModalCloseArgs
-} from '@skyux/modals';
+import { Component, OnInit } from "@angular/core";
+import { AddinClientService } from "@blackbaud/skyux-lib-addin-client";
+import { forkJoin } from "rxjs";
+import { LocalStorageConfigService } from "../local-storage-config.service";
+import { LineItem } from "./line-item";
 
 @Component({
-  selector: 'my-tile',
-  templateUrl: './my-tile.component.html',
-  styleUrls: ['./my-tile.component.scss']
+  selector: "my-tile",
+  templateUrl: "./my-tile.component.html",
+  styleUrls: ["./my-tile.component.scss"],
 })
 export class MyTileComponent implements OnInit {
   public environmentId: string;
-  public context: string;
+  public context: any;
   public userIdentityToken: string;
   public modalResponse: string;
+  public message: string;
+  public id: number;
+  public masterList: LineItem[] = [];
+  public items: LineItem[] = [];
 
   constructor(
-    private addinClientService: AddinClientService
+    private addinClientService: AddinClientService,
+    private localStorageService: LocalStorageConfigService
   ) {}
 
   public ngOnInit() {
-    this.addinClientService.args.subscribe((args: AddinClientInitArgs) => {
+    forkJoin([
+      this.localStorageService.getConfig("comments"),
+      this.addinClientService.args,
+    ]).subscribe(([items, args]) => {
+      if (items && items.length) {
+        this.masterList = items;
+      }
       this.environmentId = args.envId;
-      this.context = JSON.stringify(args.context, undefined, 2);
+      this.context = args.context.config;
+      this.id = args.context.id;
 
+      this.items = this.masterList.filter((x) => x.id === this.id);
       args.ready({
         showUI: true,
-        title: 'My Custom Tile (SKY UX)'
+        title: "COLLABORATE",
       });
     });
   }
 
-  public getUserIdentityToken() {
-    this.userIdentityToken = undefined;
-
-     this.addinClientService.getUserIdentityToken().subscribe((token: string) => {
-       this.userIdentityToken = token;
-     });
+  public add() {
+    if (this.message) {
+      let item: LineItem = {
+        createdBy: `${this.context.givenName} ${this.context.surname}`,
+        createdByEmail: this.context.userName,
+        createdDate: new Date().toISOString().slice(0, 10),
+        message: this.message,
+        id: this.id,
+        important: false,
+      };
+      this.masterList.push(item);
+      this.items.push(item);
+      this.localStorageService.setConfig("comments", this.masterList);
+      this.message = "";
+    }
   }
-
-  public invokeNavigation() {
-    this.addinClientService.navigate({
-      url: 'https://www.blackbaud.com'
-    });
-  }
-
-  public openHelp() {
-    this.addinClientService.openHelp({
-      helpKey: 'applications.html'
-    });
-  }
-
-  public showSimpleModal() {
-    // define context for the modal
-    let context = {
-      someValue: 'this value was passed to the modal'
-    };
-
-    this.showModal('https://blackbaudaddinhelloworld.azurewebsites.net/helloworldmodal.html', context);
-  }
-
-  public showSkyUxModal() {
-    // define context for the modal
-    let context = {
-      firstName: 'John',
-      lastName: 'Doe'
-    };
-
-    this.showModal('https://host.nxt.blackbaud.com/addin-modal-demo/add-customer', context);
-  }
-
-  private showModal(url: string, context: any) {
-    this.modalResponse = undefined;
-
-    this.addinClientService.showModal({
-      url: url,
-      context: context
-    }).subscribe((modalResponse: SkyModalCloseArgs) => {
-      this.modalResponse = JSON.stringify(modalResponse, undefined, 2);
-    });
-  }
-
 }

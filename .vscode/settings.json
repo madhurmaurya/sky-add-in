@@ -1,9 +1,48 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    // Columns at which to show vertical rulers
-    "editor.rulers": [140],
-
     "typescript.tsdk": "node_modules/typescript/lib",
-    "appService.defaultWebAppToDeploy": "/subscriptions/9a34349f-d23b-4c4a-ae6a-9cac8739f6ab/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/OTG2021",
-    "appService.deploySubpath": "dist"
-}
+    // Hide files from file explorer.
+    "files.exclude": {
+      "node_modules/": true,
+      ".skypageslocales": true,
+      ".skypagestmp": true,
+      "dist": true
+    },
+    // Exclude files from editor watchers.
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/dist/**": true,
+      "**/node_modules/**": true,
+      "**/.skypageslocales/**": true,
+      "**/.skypagestmp/**": true
+    },
+    // Exclude files from editor searches.
+    "search.exclude": {
+      "**/dist": true,
+      "**/node_modules": true,
+      "**/.skypageslocales/**": true,
+      "**/.skypagestmp/**": true,
+      "package-lock.json": true
+    },
+    "editor.rulers": [120],
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "editor.formatOnSave": true,
+    // Force Prettier for files
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  }
+  

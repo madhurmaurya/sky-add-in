@@ -1,89 +1,57 @@
-<div>
-  <h1>{{ 'tile_header' | skyAppResources }}</h1>
+<main>
+  <sky-fluid-grid>
+    <sky-row>
+      <sky-column>
+        <sky-alert alertType="info"> Add something here </sky-alert>
+      </sky-column>
+    </sky-row>
+    <sky-row>
+      <sky-column>
+        <textarea
+          type="text"
+          class="sky-form-control"
+          [(ngModel)]="message"
+          (keyup.enter)="add()"
+          placeholder="Write or share something"
+          required
+        ></textarea>
+      </sky-column>
+    </sky-row>
+    <sky-row>
+      <div class="sky-margin-stacked-separate"></div>
+    </sky-row>
+    <sky-row *ngFor="let item of items">
+      <sky-column
+        screenXSmall="1"
+        screenSmall="1"
+        screenMedium="1"
+        ScreenLarge="1"
+      >
+        <sky-avatar
+          [canChange]="false"
+          [name]="item.createdBy"
+          size="small"
+        ></sky-avatar>
+      </sky-column>
+      <sky-column
+        screenXSmall="10"
+        screenSmall="10"
+        screenMedium="10"
+        ScreenLarge="10"
+      >
+        <sky-description-list mode="vertical">
+          <sky-description-list-content>
+            <sky-description-list-term>
+              {{ item.createdBy }}
+            </sky-description-list-term>
+            <sky-description-list-description>
+              {{ item.message }}
+            </sky-description-list-description>
+          </sky-description-list-content>
+        </sky-description-list>
+      </sky-column>
+    </sky-row>
+  </sky-fluid-grid>
 
-  <p>Welcome to the SKY UX Add-in template.</p>
-
-  <sky-alert alertType="info">
-    You've just taken your first step into a larger world.
-  </sky-alert>
-
-  <p>
-    <a
-      href="https://developer.blackbaud.com/skyapi/docs/addins"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="sky-btn sky-btn-primary"
-    >
-      Learn more about SKY Add-ins
-    </a>
-  </p>
-
-  <label for="environmentId" class="sky-control-label">
-    The environment ID is a context value that is available to all add-ins:
-  </label>
-  <div id="environmentId">{{ environmentId }}</div>
-
-  <p></p>
-  <label for="context" class="sky-control-label">
-    Additional context values vary for each extension point - for the current extension point, the following context is provided:
-  </label>
-  <div id="context">{{ context }}</div>
-
-  <p></p>
-  <p>
-    Click the button to request a user identity token for the current user:
-  </p>
-  <button type="button" class="sky-btn sky-btn-default" (click)="getUserIdentityToken()">Get user identity token</button>
-
-  <div *ngIf="userIdentityToken">
-    <p></p>
-    <p>
-      The following string represents the identity of the current user, and can be provided to the add-in's backend for validation:
-    </p>
-    <span>{{ userIdentityToken }}</span>
-  </div>
-
-  <div>
-    <p></p>
-    <p>
-      Add-ins can show modal dialogs.  The following button shows a modal implemented using vanilla HTML, CSS, and JavaScript - the modal itself is implemented in a
-      separate <a href="https://github.com/blackbaud/addin-hello-world" target="_blank">hello world</a> web application:
-    </p>
-    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showSimpleModal()">Show a simple modal</button>
-  </div>
-
-  <div>
-    <p></p>
-    <p>
-      Modals can be implemented using SKY UX for a more consistent user experience.  The following button shows a modal implemented in a
-      separate <a href="https://github.com/blackbaud/skyux-spa-addin-modal-demo" target="_blank">modal demo</a> SKY UX SPA:
-    </p>
-    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="showSkyUxModal()">Show <b>Add customer</b> modal</button>
-  </div>
-
-  <div *ngIf="modalResponse">
-    <p></p>
-    <sky-alert alertType="info" closeable="true">
-        The modal returned the following context:
-        <br />
-        <span>{{ modalResponse }}</span>
-    </sky-alert>
-  </div>
-
-  <div>
-    <p></p>
-    <p>
-      Add-ins can also open the help window:
-    </p>
-    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="openHelp()">Open help for <b>applications.html</b></button>
-  </div>
-
-  <div>
-    <p></p>
-    <p>
-      Add-ins can also navigate the host page:
-    </p>
-    <button type="button" class="sky-btn sky-btn-default" style="display: inline-block" (click)="invokeNavigation()">Navigate to <b>https://www.blackbaud.com</b></button>
-  </div>
-
-</div>
+  <ng-template #vendorDetailBlock> </ng-template>
+</main>
